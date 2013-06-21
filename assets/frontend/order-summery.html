@@ -1,0 +1,92 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="tetext/css" href="css/style.css" />
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#expand").click(function () {
+                    $(".table").slideToggle("slow");
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+
+            <div>
+                <table class="order-table" cellpadding="5" cellspacing="0" width="100%">
+					<tr>
+						<td>
+								<div style="cursor: pointer" id="expand">
+									<img src="images/plus.png" />
+									Order
+								</div>
+						</td>
+						<td>
+							12 / 6 / 2012
+						</td>
+						
+						<td>
+							<a href="">Edit Address</a> 
+						</td>
+					</tr>
+				</table>
+                <div id="cart" class="table">
+                                    <table cellpadding="5" cellspacing="0" width="100%">
+                                            <tbody><tr>
+                                                <th>Item</th>
+                                                <th>Quantity</th>
+                                                <th>Option</th>
+                                                <th>Price</th>
+                                                <th>Remove</th>
+                                            </tr>
+                                                                                    <tr>
+                                                                                                <td><img width="50" src="http://localhost/3ash-holding-page/3ashsite/images/crowded/w-man-gray-crowded.png"></td>
+                                                <td>1</td>
+                                                <td>
+                                                    male<br>Small<br>gray<br>                                                </td>
+                                                <td>100 LE</td>
+                                                <td class="remove">
+                                                    <a class="delete cart-button" href="http://localhost/3ash-holding-page/3ashsite/en/tshirts/cart_remove/9c73e98eeb3e21ce8c0a63f8c70bbf3e">
+                                                        <img c="" src="http://localhost/3ash-holding-page/3ashsite/assets/frontend/images/delete.png" width="20">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                                    <tr>
+                                                                                                <td><img width="50" src="http://localhost/3ash-holding-page/3ashsite/images/tree/w-man-red-tree.png"></td>
+                                                <td>1</td>
+                                                <td>
+                                                    male<br>Small<br>red<br>                                                </td>
+                                                <td>100 LE</td>
+                                                <td class="remove">
+                                                    <a class="delete cart-button" href="http://localhost/3ash-holding-page/3ashsite/en/tshirts/cart_remove/1fd5da1da0ca8d54cdc372b9ad4df07b">
+                                                        <img c="" src="http://localhost/3ash-holding-page/3ashsite/assets/frontend/images/delete.png" width="20">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                                <tr class="total">
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>Total : </td>
+                                            <td>200 LE</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                       
+                                    </tbody></table>
+                                    
+                                    <div class="clear"></div>
+                                </div>
+				
+            </div>
+
+        </div>
+
+    </body>
+</html>
