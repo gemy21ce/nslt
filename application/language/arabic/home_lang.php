@@ -36,7 +36,7 @@ $lang['home.followus'] = "تابعونا على";
 $lang['home.metakeywords'] = "3ash,www.3ash.net, 3ash.net,تى شيرتات,عاش , ع ا ش";
 $lang['home.metadescription'] = "عاش® فكره عربيه للتى شيرتات العصريه خامات مصريه وافكار شبابيه";
 
-$lang['home.title'] = "عاش";
+$lang['home.title'] = "نستلة";
 $lang['home.register'] = "سجل";
 $lang['home.phone'] = "الموبايل";
 $lang['home.gender'] = "النوع";

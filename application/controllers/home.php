@@ -10,32 +10,32 @@ class Home extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('configuration_model');
-        $this->load->model('Tshirt');
+        //$this->load->model('Tshirt');
         $this->session->set_flashdata('redirectToCurrent', current_url());
     }
 
     function index() {
         $this->load->helper('language');
         $this->lang->load('home');
-        $tshirt = new Tshirt();
-        $tshirt->order_by("id", "desc");
-        $tshirt_list = $tshirt->get(8, 0);
-        $data['tshirt_list'] = $tshirt_list;
-        $tshirt2 = new Tshirt();
-        $tshirt2->order_by("id", "desc");
-        $tshirt2->order_by("views", "desc");
-        $tshirt2->where_not_in('id', $tshirt_list);
-        $data['most_viewed'] = $tshirt2->get(4, 0);
+//        $tshirt = new Tshirt();
+//        $tshirt->order_by("id", "desc");
+//        $tshirt_list = $tshirt->get(8, 0);
+//        $data['tshirt_list'] = $tshirt_list;
+//        $tshirt2 = new Tshirt();
+//        $tshirt2->order_by("id", "desc");
+//        $tshirt2->order_by("views", "desc");
+//        $tshirt2->where_not_in('id', $tshirt_list);
+//        $data['most_viewed'] = $tshirt2->get(4, 0);
         $data['main_content'] = 'frontend/home_view';
         $this->load->view('frontend/includes/template', $data);
     }
 
     function getTshirt() {
-        if ($this->uri->segment(4) != null) {
-            $tshirt = new Tshirt();
-            $id = $this->uri->segment(4);
-            $data['tshirt'] = $tshirt->get_by_id($id);
-        }
+//        if ($this->uri->segment(4) != null) {
+//            $tshirt = new Tshirt();
+//            $id = $this->uri->segment(4);
+//            $data['tshirt'] = $tshirt->get_by_id($id);
+//        }
         $this->load->view('frontend/tshirt_facebook_view', $data);
     }
 
@@ -59,14 +59,14 @@ class Home extends CI_Controller {
     }
 
     function reserve() {
-        $reservedTshirt = new ReservedTshirt();
-        $reservedTshirt->name = $this->input->post('name');
-        $reservedTshirt->email = $this->input->post('email');
-        $reservedTshirt->size_id = $this->input->post('size');
-        $reservedTshirt->sex_id = $this->input->post('sex');
-        $reservedTshirt->color_id = $this->input->post('color');
-        $reservedTshirt->tshirt_id = $this->input->post('tshirt');
-        $reservedTshirt->save();
+//        $reservedTshirt = new ReservedTshirt();
+//        $reservedTshirt->name = $this->input->post('name');
+//        $reservedTshirt->email = $this->input->post('email');
+//        $reservedTshirt->size_id = $this->input->post('size');
+//        $reservedTshirt->sex_id = $this->input->post('sex');
+//        $reservedTshirt->color_id = $this->input->post('color');
+//        $reservedTshirt->tshirt_id = $this->input->post('tshirt');
+//        $reservedTshirt->save();
         echo 'Thanks.';
     }
 

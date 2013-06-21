@@ -9,18 +9,18 @@
             <div class="st_wrapper st_thumbs_wrapper">
                 <div class="st_thumbs">
                     <?php
-                    $colorSet = array('red', 'green', 'white', 'black', 'gray', 'blue');
-                    $sexSet = array('man','woman');
-                    foreach ($tshirt_list as $tshirt):
+//                    $colorSet = array('red', 'green', 'white', 'black', 'gray', 'blue');
+//                    $sexSet = array('man','woman');
+//                    foreach ($tshirt_list as $tshirt):
                         ?>
                         <?php
-                        $tshirt->file->get();
-                        $picked = array_rand($colorSet, 1);
-                        $sexPicked = array_rand($sexSet,1);
+                        //$tshirt->file->get();
+                        //$picked = array_rand($colorSet, 1);
+                        //$sexPicked = array_rand($sexSet,1);
                         ?>
                         <img src="<?php echo base_url() . $tshirt->file->path ."m-".$sexSet[$sexPicked]."-". $colorSet[$picked] . "-" . $tshirt->file->name; ?>" class="getTshirt" id="<?php echo $tshirt->id."/".$sexPicked."/".$picked; ?>" name="<?php echo $tshirt->name; ?>" />
 
-                    <?php endforeach ?>
+                    <?php //endforeach ?>
 
                 </div>
             </div>

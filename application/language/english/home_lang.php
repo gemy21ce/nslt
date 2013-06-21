@@ -36,7 +36,7 @@ $lang['home.followus'] = "Follow us on";
 $lang['home.metakeywords'] = "3ash,www.3ash.net, 3ash.net,T-Shirts,Shirts,POLO T-Shirts,Custom T-Shirts,Arabic Designs ";
 $lang['home.metadescription'] = "3ash® is an Egyptian company founded online in May 2012. Our target is to present an Egyptian High quality product, which represents our nationality and our culture! 3ash!, Our Designs: Unique and Creative, designed to express all our changing crazy & innovative moods.
 Our T-Shirts: High quality100% Egyptian cotton. ";
-$lang['home.title'] = "3ash Trend";
+$lang['home.title'] = "Nestle";
 $lang['home.register'] = "Register";
 $lang['home.phone'] = "Mobile";
 $lang['home.gender'] = "Gender";
