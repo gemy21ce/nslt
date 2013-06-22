@@ -1,5 +1,5 @@
 <?php
-class city extends DataMapper {
+class City extends DataMapper {
     var $table='city';
     var $model='city';
     var $has_many = array('user');

@@ -10,7 +10,7 @@ class Home extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('configuration_model');
-        //$this->load->model('Tshirt');
+        $this->load->model('Menu');
         $this->session->set_flashdata('redirectToCurrent', current_url());
     }
 
@@ -29,7 +29,11 @@ class Home extends CI_Controller {
         $data['main_content'] = 'frontend/home_view';
         $this->load->view('frontend/includes/template', $data);
     }
-
+    
+    function hh(){
+        echo 'eee';
+    }
+    
     function getTshirt() {
 //        if ($this->uri->segment(4) != null) {
 //            $tshirt = new Tshirt();
