@@ -1,0 +1,250 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:18px;
+	direction:rtl;
+	}
+.conatiner{
+	background:url(../images/name-ar.png) no-repeat center top;
+	margin-top:20px;
+	}
+.conatiner-border{
+	margin-top:99px;
+	}
+.menu ul li{
+	float:right;
+	margin-right:-29px;
+	margin-left:0px;
+	}
+.menu ul li a{
+	float:right;
+	background:url(../images/menu-a-ar.png) no-repeat right;
+	}
+.menu ul li a:hover{
+	background:url(../images/menu-hover-ar.png) no-repeat right;
+	}
+.menu ul li a.active{
+	background:url(../images/menu-hover-ar.png) no-repeat right;
+	}
+.menu ul li.first{
+	margin-left:0px;
+	margin-right:0px;
+	}
+.menu ul li.first a{
+	background:url(../images/menu-a-first-ar.png) no-repeat left;
+	}
+.menu ul li.first a:hover{
+	background:url(../images/menu-hover-first-ar.png) no-repeat left;
+	}
+.menu ul li.first a.active{
+	background:url(../images/menu-hover-first-ar.png) no-repeat left;
+	}
+.menu ul li.last{
+	margin-right:-29px;
+	margin-left:0px;
+	}
+.menu ul li.last a{
+	background:url(../images/menu-a-last-ar.png) no-repeat right;
+	}
+.menu ul li.last a:hover{
+	background:url(../images/menu-hover-last-ar.png) no-repeat right;
+	}
+.menu ul li.last a.active{
+	background:url(../images/menu-hover-last-ar.png) no-repeat right;
+	}
+.conatiner-data{
+    float:right;
+	}
+.logo{
+	float:left;
+	margin-left:-210px;
+	margin-right:0px;
+	}
+.control{
+    float:right;
+	padding-left:0px;
+	padding-right:140px;
+	}
+.control-inner{
+    float:right;
+	padding-left:0px;
+	padding-right:100px;
+	}
+.control-inner a{
+	float:right;
+	}
+.lang-title{
+	float:right;
+	}
+.lang-icon-conatiner{
+	float:right;
+	margin-left:0px;
+	margin-right:180px;
+	}
+.lang-icon{
+	float:right;
+	margin-left:0px;
+	margin-right:120px;
+	}
+.lang-text-conatiner{
+	float:right;
+	margin-left:0px;
+	margin-right:180px;
+	}
+.lang-text{
+	float:right;
+	margin-left:0px;
+	margin-right:120px;
+	}
+.signin-contaner{
+	margin-left:240px;
+	margin-right:240px;
+	float:right;	
+	}
+.input-container{
+	float:right;
+	}
+.input-wide{
+	float:right;
+	padding-right:10px;
+	padding-left:0px;
+	background:url(../images/user-bg-ar.png) no-repeat;
+	text-align:right;
+	}
+.input-container input{
+	float:right;
+	text-align:right;
+	}
+.button input{
+	float:left;
+	margin-left:10px;
+	margin-right:0px;
+	}
+.info-contaner{
+	margin-left:0px;
+	margin-right:170px;
+	float:right;	
+	}
+.text-info-container{
+	float:right;
+	}
+.info-input-container{
+	float:right;
+	}
+.input-small{
+	float:right;
+	background:url(../images/info-gb-ar.png) no-repeat right;
+	padding-left:0px;
+	padding-right:10px;
+	}
+.info-input-container input{
+	float:right;
+	}
+.info-small-container{
+	float:right;
+	}
+.info-small-container input{
+	float:right;
+	}
+.browse input{
+	float:left;
+	margin-left:10px;
+	margin-right:0px;
+	}
+.scoops-contaner{
+	float:right;	
+	}
+.text-scoops-container{
+	float:right;
+	}
+.scoops-menu{
+	float:right;
+	}
+.scoops-menu ul{
+	float:right;
+	}
+.scoops-menu ul li{
+	float:right;
+	}
+.scoops-menu ul li a{
+	float:right;
+	}
+.scoops-menu ul li.seprated{
+	float:right;
+	}
+.scoops-change{
+	float:right;
+	}
+.scoop-holder{
+	float:right;
+	margin-right:20px;
+	margin-left:0px;
+	}
+.scoop-holder-img{
+	float:right;
+	}
+.scoop-holder-text{
+	float:right;
+	}
+.menu-holder{
+	float:right;
+	margin-right:20px;
+	margin-left:0px;
+	}
+.menu-holder-img{
+	float:right;
+	}
+.menu-holder-img img{
+	margin-left:0px;
+	margin-right:25px;
+	}
+.menu-holder-text{
+	float:right;
+	}
+.price-holder-text{
+	float:right;
+	margin-left:
+	}
+.price-holder-text input{
+	margin-left:5px;;
+	}
+.final-menu-change{
+	margin-right:150px;
+	margin-left:0px;
+	float:right;
+	}
+.final-menu-one{
+	float:right;
+	}
+.final-menu-one-img{
+	float:right;
+	}
+.final-menu-one-img img{
+	margin-left:0px;
+	margin-right:45px;
+	float:right;
+	}
+.final-menu-one-text{
+	float:right;
+	}
+.dilivery-input-container{
+	float:right;
+	}
+.dilivery-input-container input{
+	margin-left:5px;
+	margin-right:0px;
+	float:right;
+	}
+.dilivery-input-container select{
+	margin-left:5px;
+	margin-right:0px;
+	float:right;
+	}
+.dilivery-seprator{
+	margin-left:5px;
+	margin-right:0px;
+	float:right;
+	}
+
+

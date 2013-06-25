@@ -15,17 +15,6 @@ class Home extends CI_Controller {
     }
 
     function index() {
-        $this->load->helper('language');
-        $this->lang->load('home');
-//        $tshirt = new Tshirt();
-//        $tshirt->order_by("id", "desc");
-//        $tshirt_list = $tshirt->get(8, 0);
-//        $data['tshirt_list'] = $tshirt_list;
-//        $tshirt2 = new Tshirt();
-//        $tshirt2->order_by("id", "desc");
-//        $tshirt2->order_by("views", "desc");
-//        $tshirt2->where_not_in('id', $tshirt_list);
-//        $data['most_viewed'] = $tshirt2->get(4, 0);
         $data['main_content'] = 'frontend/home_view';
         $this->load->view('frontend/includes/template', $data);
     }

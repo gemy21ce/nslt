@@ -32,9 +32,15 @@ class Menus extends CI_Controller {
         $menu->menu_title = $this->input->post('menu_title');
 //        $plate = new Plate();
 //        $plate->id=$this->input->get('plate');
-        $menu->plates = array($this->input->get('plate'));
+//        $menu->plates = array($this->input->get('plate'));
         $menu->user = 1;
         $menu->save();
+        $plate = new Plate();
+        $plate->id = 2;
+        $menuPlate = new Menu_Plate();
+        $menuPlate->plate_id = $plate->id;
+        $menuPlate->menu_id = $menu->id;
+        $menuPlate->save();
 //        echo 'eshta';
     }
 
