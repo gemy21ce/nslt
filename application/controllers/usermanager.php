@@ -196,7 +196,8 @@ class UserManager extends CI_Controller {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $user->where('email', $email);
-        $user->where('password', sha1($password));
+//        $user->where('password', sha1($password));
+        $user->where('password', $password);
         $user->where('status', 'ACTIVE');
         $loadedUser = $user->get();
         if ($loadedUser->id) {

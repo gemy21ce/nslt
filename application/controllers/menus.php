@@ -20,7 +20,16 @@ class Menus extends CI_Controller {
 //        $data['main_content'] = 'frontend/home_view';
 //        $this->load->view('frontend/includes/template', $data);
     }
-
+    
+    public function createmenu(){
+        $this->load->helper('language');
+        $this->lang->load('home');
+        $data['tab'] = $this->uri->segment(4);
+        $data['subtab'] = $this->uri->segment(5);
+        $data['main_content'] = 'frontend/menu_form_view';
+        $this->load->view('frontend/includes/template', $data);
+    }
+    
     function saveMenu() {
         $menu = new Menu();
         $menu->name = $this->input->get('name');

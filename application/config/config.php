@@ -15,6 +15,7 @@
 |
 */
 $config['base_url']	= 'http://localhost/nstl';
+//$config['base_url']	= 'http://divineds.com/divine/nestle/';
 /*
 |--------------------------------------------------------------------------
 | Index File

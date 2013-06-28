@@ -41,10 +41,13 @@
 $active_group = 'default';
 $active_record = TRUE;
 //Description:test
-$db['default']['hostname'] = 'localhost';
+//$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
+//$db['default']['username'] = 'gemy21ce_nstl';
 $db['default']['password'] = '';
+//$db['default']['password'] = '3ashxwwx11';
 $db['default']['database'] = 'nstl';
+//$db['default']['database'] = 'gemy21ce_nstl';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
