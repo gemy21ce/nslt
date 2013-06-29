@@ -15,23 +15,12 @@ class Home extends CI_Controller {
     }
 
     function index() {
+        $this->load->helper('language');
+        $this->lang->load('home');
         $data['main_content'] = 'frontend/home_view';
         $this->load->view('frontend/includes/template', $data);
     }
     
-    function hh(){
-        echo 'eee';
-    }
-    
-    function getTshirt() {
-//        if ($this->uri->segment(4) != null) {
-//            $tshirt = new Tshirt();
-//            $id = $this->uri->segment(4);
-//            $data['tshirt'] = $tshirt->get_by_id($id);
-//        }
-        $this->load->view('frontend/tshirt_facebook_view', $data);
-    }
-
     function sendmail() {
         $mail = new Mailer();
         $conf = $this->configuration_model->get();

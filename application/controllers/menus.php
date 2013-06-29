@@ -8,20 +8,13 @@ class Menus extends CI_Controller {
     }
 
     public function index() {
-        echo 'hellow';
-//        $this->load->helper('language');
-//        $this->lang->load('home');
-//        $user = new User();
-//        $userObject = $this->session->all_userdata();
-//        $userObject = $user->get_by_email($userObject['email']);
-//        $data['user'] = $userObject;
-//        $data['main_content'] = 'frontend/payment_view';
-//        $this->load->view('frontend/includes/template', $data);
-//        $data['main_content'] = 'frontend/home_view';
-//        $this->load->view('frontend/includes/template', $data);
+        $this->load->helper('language');
+        $this->lang->load('home');
+        $data['main_content'] = 'frontend/home_view';
+        $this->load->view('frontend/includes/template', $data);
     }
-    
-    public function createmenu(){
+
+    public function createmenu() {
         $this->load->helper('language');
         $this->lang->load('home');
         $data['tab'] = $this->uri->segment(4);
@@ -29,7 +22,7 @@ class Menus extends CI_Controller {
         $data['main_content'] = 'frontend/menu_form_view';
         $this->load->view('frontend/includes/template', $data);
     }
-    
+
     function saveMenu() {
         $menu = new Menu();
         $menu->name = $this->input->get('name');

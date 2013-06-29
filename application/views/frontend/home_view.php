@@ -15,7 +15,7 @@
     <div class="conatiner-data">
         <div class="lang-title">Please Choose the language</div>
         <div class="lang-icon-conatiner">
-            <div class="lang-icon"> <a href="#"><img src="<?php echo base_url(); ?>assets/frontend/images/egypt-flag.jpg" width="118" height="95" /></a> </div>
+            <div class="lang-icon"> <a href="<?php echo base_url(); ?>ar/menus/createmenu"><img src="<?php echo base_url(); ?>assets/frontend/images/egypt-flag.jpg" width="118" height="95" /></a> </div>
             <div class="lang-icon"> <a href="<?php echo base_url(); ?>en/menus/createmenu"><img src="<?php echo base_url(); ?>assets/frontend/images/eng-flag.jpg" width="118" height="95" /></a></div>
         </div>
         <div class="lang-text-conatiner">
