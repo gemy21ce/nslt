@@ -81,6 +81,10 @@ $lang['menuform.st9.year'] = "سنة";
 $lang['menuform.st9.savemenu'] = "احفظ القائمة";
 $lang['menuform.st9.save'] = "احفظ";
 $lang['menuform.st10.final'] = "تم حفظ قائمة آيس كريم نستلة بنجاح";
+$lang['menuform.required'] = "هذا الحقل مطلوب";
+$lang['menuform.digits'] = "من فضلك ادخل رقم هاتف صحيح";
+$lang['menuform.alphanumeric'] = "الارقام والحروف فقط متاحة";
+$lang['menuform.email'] = "صيغة الايميل غير صحيحة";
 
 
 ?>

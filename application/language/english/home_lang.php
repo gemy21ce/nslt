@@ -81,6 +81,10 @@ $lang['menuform.st9.year'] = "Year";
 $lang['menuform.st9.savemenu'] = "Save Your Menu";
 $lang['menuform.st9.save'] = "Save";
 $lang['menuform.st10.final'] = "Your new Nestle menu has been created Successfully we'll contact you soon to deliver it to you.";
+$lang['menuform.required'] = "This field is required.";
+$lang['menuform.digits'] = "Please enter a valid phone number";
+$lang['menuform.alphanumeric'] = "Letters, numbers, and underscores only please";
+$lang['menuform.email'] = "Please enter a valid email address.";
 
 
 ?>
