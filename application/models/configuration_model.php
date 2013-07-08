@@ -21,7 +21,7 @@ class Configuration_Model extends CI_Model {
             $insert = $this->db->insert('user', $new_configuration_insert);
         else {
             $this->db->where('id', $this->input->post('id'));
-            $insert = $this->db->update('configuration', $new_configuration_insert);
+            $insert = $this->db->update('configurations', $new_configuration_insert);
         }
 
 
@@ -32,7 +32,7 @@ class Configuration_Model extends CI_Model {
 
     function get() {
         $q = $this->db->where('id', 1);
-        $q = $this->db->get("configuration", 1);
+        $q = $this->db->get("configurations", 1);
         return $q->row();
     }
 

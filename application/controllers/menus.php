@@ -6,6 +6,7 @@ class Menus extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->model('configuration_model');
 //        $this->_is_logged_in();
     }
 
@@ -97,7 +98,8 @@ class Menus extends CI_Controller {
             $menu_plate->save();
         }
         
-//        $msg = 'A new Nestle menu has created click on the following link to see menu detials:<br/>'.
+        $msg = 'A new Nestle menu has created click on the following link to see menu detials:<br/>'.
+                '<a href="'.base_url().'/en/menus/get/'.$menu->id.'">'.base_url().'/en/menus/get/'.$menu->id.'</a>';
         /*$msg = 'A new Nestle menu has created with the following:<br/>'.
                 'name: '.$menu->name.'<br/>'.
                 'email: '.$menu->email.'<br/>'.
@@ -111,8 +113,8 @@ class Menus extends CI_Controller {
         }
         $msg = $msg.'quantity: ' .$menu->quantity.'<br/>'.
                 ''.'<br/>';
-                
-        $this->sendMail($msg);*/
+                */
+        $this->sendMail($msg);
     }
 
     function get(){
@@ -123,13 +125,9 @@ class Menus extends CI_Controller {
         $menu_id = $this->uri->segment(4);
         $menu1 = new Menu();
         $menu = $menu1->get_by_id($menu_id);
-        echo $menu->file;
-        $menuTheme = new Theme();
-        $menuTheme = $menuTheme->get_by_id(1);
+        $menu->file->get();
+        $menu->menu_scopes->get();
         
-        $data['theme'] = $menuTheme;
-        
-
         $data['menu'] = $menu;
         $data['main_content'] = 'frontend/menu_view';
         $this->load->view('frontend/includes/menuTemplate', $data);
@@ -140,11 +138,11 @@ class Menus extends CI_Controller {
         $conf = $this->configuration_model->get();
         $sentmail = $conf->email;
         $sentpassword = $conf->password;
-        unset($data);
-        $data[] = 'gemy21ce@gmail.com';
+//        unset($data);
+//        $data[] = array($conf->receiver_mail_1,$conf->receiver_mail_2);
         $subject = 'Menu created';
 
-        $mail->SendTaskMail($data, $subject, $sentmail, $msg , $sentmail, $sentpassword);
+        $mail->SendTaskMail(array($conf->receiver_mail_1,$conf->receiver_mail_2), $subject, $sentmail, $msg , $sentmail, $sentpassword);
     }
 
 }
