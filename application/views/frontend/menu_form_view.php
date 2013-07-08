@@ -5,26 +5,20 @@
 
 
         var pages = ['clientInfo', 'scoops', 'shakes', 'plates', 'menutype', 'menutheme', 'menuprices', 'finalmenu', 'costdelivery', 'menusaved'];
-
         var pageId = '<?php echo $tab; ?>';
-
         if (pageId === 'scoops' || pageId === 'shakes' || pageId === 'plates') {
             $("#menutabs .active").removeClass('active');
             $("#menutabs").find('[href="#scoops"]').addClass('active');
         }
         var getPricesItems = function() {
             $("#prices").html('');
-            var items = $("input[name='scoop']:checked, input[name='plate']:checked, input[name='shake']:checked").parents('.scoop-holder').clone().get();
-
+            var items = $("input[name='scoop[]']:checked, input[name='plate[]']:checked, input[name='shake[]']:checked").parents('.scoop-holder').clone().get();
             items.reverse();
             //console.log(items.length);
             var docs = Math.floor(items.length / 4 + 1);
-            //console.log("docs",docs);
             for (var i = 0; i < docs; i++) {
-                //console.log("i",i);
                 var div = document.createElement('div');
                 div.setAttribute("class", "menu-holder-all");
-
                 $(div).append(items.splice(0, 4));
                 //console.log("div",div);
 
@@ -36,7 +30,7 @@
                 $("#prices").append(div);
             }
             $("#prices").find('input[type="text"]').each(function() {
-                $(this).attr('name', $(this).attr('value') + "_price");
+                $(this).attr('name', $(this).attr('name').substr(0,$(this).attr('name').length -2) + "_" + $(this).attr('value') + "_price");
             });
         };
         var openTab = function(id, el) {
@@ -65,17 +59,6 @@
 
             var id = $(this).attr('href').substr(1);
             openTab(id, this);
-        });
-        $('#menuForm').submit(function() {
-            if (!$('#menuForm').valid()) {
-                $('a[href="clientInfo"]').trigger('click');
-                return false;
-            }
-            $('.tabs').hide();
-            $("#menusaved").show();
-            $('.opener').unbind('click');
-            window.history.pushState(null, "Title", "<?php echo base_url() . $this->lang->lang() ?>/menus/createmenu/menusaved");
-            return false;
         });
 
         $("#menuForm").validate({
@@ -141,9 +124,46 @@
                     required: "<?= lang('menuform.required') ?>",
                     digits: "<?= lang('menuform.digits') ?>"
                 }
+            },
+            submitHandler: function() {
+                if (!$('#menuForm').valid()) {
+                    $('a[href="#clientInfo"]').trigger('click');
+                    return false;
+                }
+                if($("input[name='name']").val() === ''){
+                    $('a[href="#clientInfo"]').trigger('click');
+                    return false;
+                }
+                if($("input[name='scoop[]']:checked, input[name='plate[]']:checked, input[name='shake[]']:checked").length === 0){
+                    $('a[href="#scoops"]').trigger('click');
+                    return false;
+                }
+                if($("input[name='type']:checked").length === 0){
+                    $('a[href="#menutype"]').trigger('click');
+                    return false;
+                }
+                if($("input[name='theme']:checked").length === 0){
+                    $('a[href="#menutheme"]').trigger('click');
+                    return false;
+                }
+                var data = new FormData($('#menuForm')[0]);
+                data.append("upload", $("input[type='file']")[0]);
+                $.ajax({
+                    url: "<?php echo base_url() . $this->lang->lang() ?>/menus/saveMenu",
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function() {
+                        $('.tabs').hide();
+                        $("#menusaved").show();
+                        $('.opener').unbind('click');
+                        window.history.pushState(null, "Title", "<?php echo base_url() . $this->lang->lang() ?>/menus/createmenu/menusaved");
+                        return false;
+                    }
+                });
             }
         });
-
         if (pageId === 'menusaved') {
             $("#menutabs .active").removeClass('active');
             $("#menutabs").find('[href="#costdelivery"]').addClass('active');
@@ -168,7 +188,6 @@
             var index = pages.indexOf(pageId);
             $("[href='#" + pages[index - 1] + "']").trigger('click');
         });
-
     });
 </script>
 <style>
@@ -192,8 +211,8 @@
     </div>
     <!--change this-->
     <div  class="conatiner-data">
-        
-        <form name="menuForm" id="menuForm">
+
+        <form name="menuForm"  action="<?php echo base_url() . $this->lang->lang() ?>/menus/saveMenu" id="menuForm" method="post" accept-charset="utf-8" enctype="multipart/form-data" >
             <div class="tabs" id="clientInfo" >
                 <div class="info-contaner">
                     <div class="text-info-container"><?= lang('menuform.st1.header') ?> </div>
@@ -205,7 +224,7 @@
                     <div class="info-input-container"><div class="input-wide"><?= lang('menuform.st1.salesman') ?></div><input  required="true" name="sales" type="text" /> </div>
                     <div class="info-input-container"><div class="input-wide"><?= lang('menuform.st1.title') ?></div><input name="title" type="text" /> </div>
                     <div class="input-container"><div class="input-wide"><?= lang('menuform.st1.logo') ?></div> </div>
-                    <div class=" browse"><input name="logo" type="file" value="<?= lang('menuform.st1.browse') ?>"/></div>
+                    <div class=" browse"><input name="logo" type="file" /></div>
                 </div>
             </div>
             <div id="scoops" style="display: none; " class="tabs scoops-contaner">
@@ -224,19 +243,19 @@
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/vanilla.png" width="221" height="162" alt="Vanilla" /></div>
-                            <div class="scoop-holder-text"><input name="scoop" type="checkbox" value="vanilla_scoop" /><?= lang('menuform.st2.vanilla') ?></div>
+                            <div class="scoop-holder-text"><input name="scoop[]" type="checkbox" value="1" /><?= lang('menuform.st2.vanilla') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/strawberry.png" width="221" height="162" alt="strawberry" /></div>
-                            <div class="scoop-holder-text"><input name="scoop" type="checkbox" value="strawberrt_scoop" /><?= lang('menuform.st2.strawberry') ?></div>
+                            <div class="scoop-holder-text"><input name="scoop[]" type="checkbox" value="2" /><?= lang('menuform.st2.strawberry') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/mango.png" width="221" height="162" alt="mango" /></div>
-                            <div class="scoop-holder-text"><input name="scoop" type="checkbox" value="mango_scoop" /><?= lang('menuform.st2.mango') ?></div>
+                            <div class="scoop-holder-text"><input name="scoop[]" type="checkbox" value="3" /><?= lang('menuform.st2.mango') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/chocolate.png" width="221" height="162" alt="chocolate" /></div>
-                            <div class="scoop-holder-text"><input name="scoop" type="checkbox" value="chocolate_scoop" /><?= lang('menuform.st2.chocolate') ?></div>
+                            <div class="scoop-holder-text"><input name="scoop[]" type="checkbox" value="4" /><?= lang('menuform.st2.chocolate') ?></div>
                         </div>
                     </div>
 
@@ -258,49 +277,49 @@
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/1.png" width="221" height="162" /></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="strawberry_shake" /><?= lang('menuform.st3.shake1') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="1" /><?= lang('menuform.st3.shake1') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/2.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="blueberry_shake" /><?= lang('menuform.st3.shake2') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="2" /><?= lang('menuform.st3.shake2') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/3.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="lateaftereigh_shake" /><?= lang('menuform.st3.shake3') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="3" /><?= lang('menuform.st3.shake3') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/4.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="chocolate_shake" /><?= lang('menuform.st3.shake4') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="4" /><?= lang('menuform.st3.shake4') ?></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/5.png" width="221" height="162" /></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="kitkat_shake" /><?= lang('menuform.st3.shake5') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="5" /><?= lang('menuform.st3.shake5') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/6.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="chocolate_shake" /><?= lang('menuform.st3.shake6') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="6" /><?= lang('menuform.st3.shake6') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/7.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="basbousa_shake" /><?= lang('menuform.st3.shake7') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="7" /><?= lang('menuform.st3.shake7') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/8.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="caramilla_shake" /><?= lang('menuform.st3.shake8') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="8" /><?= lang('menuform.st3.shake8') ?></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/9.png" width="221" height="162" /></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="hippy_shake" /><?= lang('menuform.st3.shake9') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="9" /><?= lang('menuform.st3.shake9') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/10.png" width="221" height="162"/></div>
-                            <div class="scoop-holder-text"><input name="shake" type="checkbox" value="mango_shake" /><?= lang('menuform.st3.shake10') ?></div>
+                            <div class="scoop-holder-text"><input name="shake[]" type="checkbox" value="10" /><?= lang('menuform.st3.shake10') ?></div>
                         </div>
                     </div>
 
@@ -322,64 +341,64 @@
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/1-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="konafa_plate"><?= lang('menuform.st4.plate1') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="1"><?= lang('menuform.st4.plate1') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/2-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="chocolate_plate"><?= lang('menuform.st4.plate2') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="2"><?= lang('menuform.st4.plate2') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/3-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="booster_plate"><?= lang('menuform.st4.plate3') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="3"><?= lang('menuform.st4.plate3') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/4-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="iceraisin_plate"><?= lang('menuform.st4.plate4') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="4"><?= lang('menuform.st4.plate4') ?></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/5-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="banana_plate"><?= lang('menuform.st4.plate5') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="5"><?= lang('menuform.st4.plate5') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/6-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="stawberry_plate"><?= lang('menuform.st4.plate6') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="6"><?= lang('menuform.st4.plate6') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/7-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="sugar_plate"><?= lang('menuform.st4.plate7') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="7"><?= lang('menuform.st4.plate7') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/8-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="icegold_plate"><?= lang('menuform.st4.plate8') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="8"><?= lang('menuform.st4.plate8') ?></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/9-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="smooth_plate"><?= lang('menuform.st4.plate9') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="9"><?= lang('menuform.st4.plate9') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/10-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="mangokonafa_plate"><?= lang('menuform.st4.plate10') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="10"><?= lang('menuform.st4.plate10') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/11-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name=plate"" type="checkbox" value="biscuit_plate"><?= lang('menuform.st4.plate11') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="11"><?= lang('menuform.st4.plate11') ?></div>
                         </div>
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/12-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="icedonut_plate"><?= lang('menuform.st4.plate12') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="12"><?= lang('menuform.st4.plate12') ?></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="scoop-holder">
                             <div class="scoop-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/13-2.png" width="221" height="162"></div>
-                            <div class="scoop-holder-text"><input name="plate" type="checkbox" value="icechocolate_plate"><?= lang('menuform.st4.plate13') ?></div>
+                            <div class="scoop-holder-text"><input name="plate[]" type="checkbox" value="13"><?= lang('menuform.st4.plate13') ?></div>
                         </div>
                     </div>
 
@@ -393,22 +412,22 @@
                     <div class="menu-holder-all">
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/typea.png" width="176" height="197" alt="Type-A"></div>
-                            <div class="menu-holder-text"><input name="type" type="checkbox" value="menu_type_a"><?= lang('menuform.st5.type1') ?>
+                            <div class="menu-holder-text"><input name="type" type="radio" value="1"><?= lang('menuform.st5.type1') ?>
                             </div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/typeb.png" width="176" height="197" alt="Type-B"></div>
-                            <div class="menu-holder-text"><input name="type" type="checkbox" value="menu_type_b"><?= lang('menuform.st5.type2') ?>
+                            <div class="menu-holder-text"><input name="type" type="radio" value="2"><?= lang('menuform.st5.type2') ?>
                             </div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/typec.png" width="176" height="197" alt="Type-C"></div>
-                            <div class="menu-holder-text"><input name="type" type="checkbox" value="menu_type_c"><?= lang('menuform.st5.type3') ?>
+                            <div class="menu-holder-text"><input name="type" type="radio" value="3"><?= lang('menuform.st5.type3') ?>
                             </div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/typed.png" width="176" height="197" alt="Type-D"></div>
-                            <div class="menu-holder-text"><input name="type" type="checkbox" value="menu_type_d"><?= lang('menuform.st5.type4') ?>
+                            <div class="menu-holder-text"><input name="type" type="radio" value="4"><?= lang('menuform.st5.type4') ?>
                             </div>
                         </div>
                     </div>
@@ -416,12 +435,12 @@
                     <div class="menu-holder-all">
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/typee.png" width="176" height="197" alt="Type-E"></div>
-                            <div class="menu-holder-text"><input name="type" type="checkbox" value="menu_type_e"><?= lang('menuform.st5.type5') ?>
+                            <div class="menu-holder-text"><input name="type" type="radio" value="5"><?= lang('menuform.st5.type5') ?>
                             </div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/typef.png" width="176" height="197" alt="Type-F"></div>
-                            <div class="menu-holder-text"><input name="type" type="checkbox" value="menu_type_f"><?= lang('menuform.st5.type6') ?>
+                            <div class="menu-holder-text"><input name="type" type="radio" value="6"><?= lang('menuform.st5.type6') ?>
                             </div>
                         </div>
                     </div>
@@ -435,57 +454,57 @@
                     <div class="menu-holder-all">
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-1.png" width="176" height="197" alt="menu-1"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_1"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="1"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-2.png" width="176" height="197" alt="menu-2"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_2"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="2"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-3.png" width="176" height="197" alt="menu-3"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_3"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="3"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-4.png" width="176" height="197" alt="menu-4"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_4"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="4"></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-5.png" width="176" height="197" alt="menu-5"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_5"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="5"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-6.png" width="176" height="197" alt="menu-6"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_6"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="6"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-7.png" width="176" height="197" alt="menu-7"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_7"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="7"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-8.png" width="176" height="197" alt="menu-8"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_8"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="8"></div>
                         </div>
                     </div>
 
                     <div class="menu-holder-all">
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-9.png" width="176" height="197" alt="menu-9"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_9"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="9"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-10.png" width="176" height="197" alt="menu-10"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_10"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="10"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-11.png" width="176" height="197" alt="menu-11"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_11"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="11"></div>
                         </div>
                         <div class="menu-holder">
                             <div class="menu-holder-img"><img src="<?php echo base_url(); ?>assets/frontend/images/menu-12.png" width="176" height="197" alt="menu-12"></div>
-                            <div class="menu-holder-text"><input name="theme" type="checkbox" value="theme_12"></div>
+                            <div class="menu-holder-text"><input name="theme" type="radio" value="12"></div>
                         </div>
                     </div>
 

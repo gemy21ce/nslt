@@ -469,3 +469,14 @@ ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`sex_id`) REFERENCES `sex` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE  `menu` ADD  `menu_type` INT( 11 ) UNSIGNED NOT NULL AFTER  `menu_theme` , ADD INDEX (  `menu_type` );
+
+ALTER TABLE  `menu` ADD FOREIGN KEY (  `menu_type` ) REFERENCES  `shape` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
+
+ALTER TABLE  `menu_scope` ADD  `price` FLOAT( 11 ) NOT NULL DEFAULT  '0';
+
+ALTER TABLE  `menu_shake` ADD  `price` FLOAT( 11 ) NOT NULL DEFAULT  '0';
+
+ALTER TABLE  `menu_plate` ADD  `price` FLOAT( 11 ) NOT NULL DEFAULT  '0';

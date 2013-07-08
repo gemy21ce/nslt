@@ -1,6 +1,6 @@
 <?php
 class Country extends DataMapper {
-    var $table='country';
+    var $table='countries';
     var $model='country';
     var $has_many = array('user','city');
      function  __construct() {

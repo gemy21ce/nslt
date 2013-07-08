@@ -2,6 +2,9 @@
 
 class Configuration_Model extends CI_Model {
 
+    var $table='configurations';
+    var $model='configuration_Model';
+    
     function save() {
         $new_configuration_insert = array(
             'keywords' => $this->input->post('keywords'),
