@@ -29,7 +29,6 @@ class Menus extends CI_Controller {
 
     function saveMenu() {
 
-
         $menu = new Menu();
         $menu->name = $this->input->post('name');
         $menu->phone = $this->input->post('phone');
@@ -69,7 +68,7 @@ class Menus extends CI_Controller {
         //save scoops
         $scoops = $this->input->post('scoop');
 
-        foreach($scoops as $scoop) {
+        foreach ($scoops as $scoop) {
             $menu_scoop = new Menu_Scope();
             $menu_scoop->menu_id = $menu->id;
             $menu_scoop->scope_id = $scoop;
@@ -80,7 +79,7 @@ class Menus extends CI_Controller {
         //save shakes
         $shakes = $this->input->post('shake');
 
-        foreach($shakes as $shake) {
+        foreach ($shakes as $shake) {
             $menu_shake = new Menu_Shake();
             $menu_shake->menu_id = $menu->id;
             $menu_shake->shake_id = $shake;
@@ -90,49 +89,35 @@ class Menus extends CI_Controller {
 
         //save plates
         $plates = $this->input->post('plate');
-        foreach($plates as $plate) {
+        foreach ($plates as $plate) {
             $menu_plate = new Menu_Plate();
             $menu_plate->menu_id = $menu->id;
             $menu_plate->plate_id = $plate;
             $menu_plate->price = $this->input->post('plate_' . $plate . "_price");
             $menu_plate->save();
         }
-        
-        $msg = 'A new Nestle menu has created click on the following link to see menu detials:<br/>'.
-                '<a href="'.base_url().'/en/menus/get/'.$menu->id.'">'.base_url().'/en/menus/get/'.$menu->id.'</a>';
-        /*$msg = 'A new Nestle menu has created with the following:<br/>'.
-                'name: '.$menu->name.'<br/>'.
-                'email: '.$menu->email.'<br/>'.
-                'phone:'.$menu->phone.'<br/>'.
-                'mobile: '.$menu->mobile.'<br/>'.
-                'address: '.$menu->address.'<br/>'.
-                'sales man: '.$menu->sales_man.'<br/>'.
-                'menu title: '.$menu->menu_title.'<br/>';
-        if($file != null){
-            $msg = $msg.'menu logo: <img src="'.base_url(). $file-path.'" width="50" height="50"/><br/>';
-        }
-        $msg = $msg.'quantity: ' .$menu->quantity.'<br/>'.
-                ''.'<br/>';
-                */
+
+        $msg = 'A new Nestle menu has created click on the following link to see menu detials:<br/>' .
+                '<a href="' . base_url() . '/en/admin/get/' . $menu->id . '">' . base_url() . '/en/admin/get/' . $menu->id . '</a>';
         $this->sendMail($msg);
     }
 
-    function get(){
+    function get() {
 
         $this->load->helper('language');
         $this->lang->load('home');
-        
+
         $menu_id = $this->uri->segment(4);
         $menu1 = new Menu();
         $menu = $menu1->get_by_id($menu_id);
         $menu->file->get();
         $menu->menu_scopes->get();
-        
+
         $data['menu'] = $menu;
         $data['main_content'] = 'frontend/menu_view';
         $this->load->view('frontend/includes/menuTemplate', $data);
     }
-    
+
     function sendMail($msg) {
         $mail = new Mailer();
         $conf = $this->configuration_model->get();
@@ -142,7 +127,7 @@ class Menus extends CI_Controller {
 //        $data[] = array($conf->receiver_mail_1,$conf->receiver_mail_2);
         $subject = 'Menu created';
 
-        $mail->SendTaskMail(array($conf->receiver_mail_1,$conf->receiver_mail_2), $subject, $sentmail, $msg , $sentmail, $sentpassword);
+        $mail->SendTaskMail(array($conf->receiver_mail_1, $conf->receiver_mail_2), $subject, $sentmail, $msg, $sentmail, $sentpassword);
     }
 
 }
