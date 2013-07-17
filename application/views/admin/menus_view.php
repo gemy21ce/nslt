@@ -13,7 +13,7 @@
             <?php foreach ($menus as $menu) { ?>
             <tr>
                 <td></td>
-                <td><a style="color: white" href="get/<?php echo $menu->id; ?>"><?php echo $menu->name; ?></a></td>
+                <td><a style="color: white" href="<?php echo base_url().'en/admin/get/'. $menu->id; ?>"><?php echo $menu->name; ?></a></td>
                 <td><?php echo $menu->email; ?></td>
                 <td><?php echo $menu->quantity; ?></td>
             </tr>

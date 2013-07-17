@@ -85,6 +85,9 @@ $lang['menuform.required'] = "هذا الحقل مطلوب";
 $lang['menuform.digits'] = "من فضلك ادخل رقم هاتف صحيح";
 $lang['menuform.alphanumeric'] = "الارقام والحروف فقط متاحة";
 $lang['menuform.email'] = "صيغة الايميل غير صحيحة";
+$lang['login.username'] = "اسم المستخدم";
+$lang['login.password'] = "كلمة المرور";
+$lang['login.singin'] = "تسجيل الدخول";
 
 
 ?>

@@ -7,7 +7,7 @@ class Menus extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('configuration_model');
-//        $this->_is_logged_in();
+        $this->_is_logged_in();
     }
 
     public function index() {
@@ -40,8 +40,8 @@ class Menus extends CI_Controller {
         $menu->quantity = $this->input->post('quantity');
         $menu->type_id = $this->input->post('type');
         $menu->theme_id = $this->input->post('theme');
-        //set user later
-        $menu->user_id = 1;
+        //set user
+        $menu->user_id = $this->session->userdata('id');
 
 
 
@@ -128,6 +128,15 @@ class Menus extends CI_Controller {
         $subject = 'Menu created';
 
         $mail->SendTaskMail(array($conf->receiver_mail_1, $conf->receiver_mail_2), $subject, $sentmail, $msg, $sentmail, $sentpassword);
+    }
+
+    function _is_logged_in() {
+        $is_logged_in = $this->session->userdata('is_logged_in');
+        if (!isset($is_logged_in) || $is_logged_in != true) {
+            $this->session->set_flashdata('redirectToCurrent', current_url());
+            redirect("home/login");
+            die();
+        }
     }
 
 }

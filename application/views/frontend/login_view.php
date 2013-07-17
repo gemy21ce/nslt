@@ -1,56 +1,33 @@
-<div class="clear"></div>
-<div class="login-view">
-<div class="contact-title"><?= lang('home.login') ?></div>
-<?php
-if (isset($errormessage)):
-    ?>
-    <div class="contact-title message">
-        <?= lang('home.errorlogin'); ?>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/js/additional-methods.js"></script>
+<style>
+    .error{
+        color: white;
+        font-size: 14px;
+    }
+</style>
+<div class="conatiner-border">
+    <div id="menutabs" class="menu">
+        <ul>
+            <li class="first"><a class="opener active" style="cursor: pointer"><?= lang('menuform.step1') ?><br/><span><?= lang('menuform.signIn') ?></span></a></li>
+            <li><a style="cursor: pointer" class="opener"><?= lang('menuform.step2') ?><br/><span><?= lang('menuform.clientInfo') ?></span></a></li>
+            <li><a style="cursor: pointer" class="opener"><?= lang('menuform.step3') ?><br/><span><?= lang('menuform.menuItems') ?></span></a></li>
+            <li><a style="cursor: pointer" class="opener"><?= lang('menuform.step4') ?><br/><span><?= lang('menuform.menuShape') ?></span></a></li>
+            <li><a style="cursor: pointer" class="opener"><?= lang('menuform.step5') ?><br/><span><?= lang('menuform.theme') ?></span></a></li>
+            <li><a style="cursor: pointer" class="opener"><?= lang('menuform.step6') ?><br/><span><?= lang('menuform.price') ?></span></a></li>
+            <li><a style="cursor: pointer" class="opener"><?= lang('menuform.step7') ?><br/><span><?= lang('menuform.finalmenu') ?></span></a></li>
+            <li class="last"><a style="cursor: pointer" class="opener"><?= lang('menuform.step8') ?><br/><span><?= lang('menuform.cost') ?></span></a></li>
+        </ul>
     </div>
-<?php endif; ?>
-
-<form  action="<?php echo base_url() . $this->lang->lang(); ?>/usermanager/login" method="post" id="login_form_view">                      
-    <div class="form-row">
-        <label><?= lang('home.Mail') ?></label>
-        <br />
-        <input type="text" id="email" name="email" >      
+    <!--change this-->
+    <div class="conatiner-data">
+            <div class="signin-contaner">
+                <form action="signin" method="post">
+                    <div class="input-container"><div class="input-wide"><?= lang('login.username') ?></div><input name="username" type="text"> </div>
+                    <div class="input-container"><div class="input-wide"><?= lang('login.password') ?></div><input name="password" type="password"> </div>
+                    <div class=" button"><input name="Submit" type="submit" value="<?= lang('login.signin') ?>"></div>
+                </form>
+            </div>
     </div>
-    <div class="form-row">
-        <label><?= lang('home.password') ?></label>
-        <br />
-        <input type="password" id="password" name="password">
-    </div>
-      <input type="hidden" id="target-url" name="target-url" value="<?=$this->session->flashdata('redirectToCurrent');?>" >
-      <div class="form-row"><a  href="<?php echo base_url() . $this->lang->lang(); ?>/usermanager/forgetpassword"> <?= lang('home.forgetpassword'); ?></a></div>
-    <div class="form-row"><input type="submit"  value="<?= lang('home.Submit'); ?>" class="f-r" /></div>
-    <div class="clear"></div>
-</form>
+    <!--End change this-->
 </div>
-<div class="clear"></div>
-<script type="text/javascript">
-        $(function(){
-                    $("#login_form_view").validate({
-            rules:{
-                email:{
-                    required:true,
-                    email:true
-                },
-                password:{
-                    required:true,
-                    minlength:6
-                }
-            },
-                messages:{                
-                email:{
-                    required:"<?= lang('home.thisfieldisrequired') ?>",
-                    email:"<?= lang('home.emailfieldrequired') ?>"
-                },
-                password:{
-                    required:"<?= lang('home.thisfieldisrequired') ?>",
-                    minlength:"<?= lang('home.minlengthValidate6') ?>"
-                }
-            }
-        })
-        });
-
-</script>

@@ -1,5 +1,6 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/js/additional-methods.js"></script>
+<script src="<?php echo base_url(); ?>assets/frontend/js/ajax.submit.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     $(function() {
 
@@ -148,6 +149,7 @@
                 }
                 var data = new FormData($('#menuForm')[0]);
                 data.append("upload", $("input[type='file']")[0]);
+                jloading('Saving');
                 $.ajax({
                     url: "<?php echo base_url() . $this->lang->lang() ?>/menus/saveMenu",
                     type: 'POST',
@@ -155,6 +157,7 @@
                     processData: false,
                     data: data,
                     success: function() {
+                        jHide();
                         $('.tabs').hide();
                         $("#menusaved").show();
                         $('.opener').unbind('click');

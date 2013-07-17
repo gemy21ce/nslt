@@ -85,6 +85,9 @@ $lang['menuform.required'] = "This field is required.";
 $lang['menuform.digits'] = "Please enter a valid phone number";
 $lang['menuform.alphanumeric'] = "Letters, numbers, and underscores only please";
 $lang['menuform.email'] = "Please enter a valid email address.";
+$lang['login.username'] = "Username";
+$lang['login.password'] = "Password";
+$lang['login.signin'] = "Sign in";
 
 
 ?>
