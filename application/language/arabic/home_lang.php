@@ -87,7 +87,7 @@ $lang['menuform.alphanumeric'] = "الارقام والحروف فقط متاح�
 $lang['menuform.email'] = "صيغة الايميل غير صحيحة";
 $lang['login.username'] = "اسم المستخدم";
 $lang['login.password'] = "كلمة المرور";
-$lang['login.singin'] = "تسجيل الدخول";
+$lang['login.signin'] = "تسجيل الدخول";
 
 
 ?>

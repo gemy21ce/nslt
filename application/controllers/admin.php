@@ -115,7 +115,8 @@ class admin extends CI_Controller {
 
     function _is_logged_in() {
         $is_logged_in = $this->session->userdata('is_logged_in');
-        if (!isset($is_logged_in) || $is_logged_in != true) {
+        $admin = $this->session->userdata('admin');
+        if (!isset($is_logged_in) || $is_logged_in != true || $admin != 'admin') {
             $this->session->set_flashdata('redirectToCurrent', current_url());
             redirect("home/login");
             die();
